@@ -1,2 +1,2 @@
 # react-calendar
-this is for just react component for calendar 
+This is react calendar component, with calendar.css from which elements.
