@@ -1,16 +1,13 @@
 /* eslint react/no-danger: 0 */
 import React, { Component } from "react";
 
-import { createHistory } from "history";
 
-import Prism from "./vendors/prism";
-import "./vendors/prism.css";
 
 
 import SimpleCalendar from "./examples/SimpleCalendar";
 
 
-const history = createHistory();
+
 
 const EXAMPLES = {
   simple: {
@@ -28,25 +25,8 @@ export default class Examples extends Component {
     showNavBar: false
   };
 
-  componentDidMount() {
-    this.unlistenHistory = history.listen(::this.handleHistoryChange);
-  }
 
-  componentDidUpdate() {
-    Prism.highlightAll();
-  }
 
-  componentWillUnmount() {
-    this.unlistenHistory();
-  }
-
-  handleHistoryChange({ hash }) {
-    const currentExample = hash.replace("#", "");
-    if (currentExample in EXAMPLES) {
-
-      this.setState({ currentExample, showNavBar: false }, () => window.scrollTo(0, 0));
-    }
-  }
 
   renderNavBarExamples() {
     const links = [];
@@ -74,7 +54,7 @@ export default class Examples extends Component {
       <div>
         <div className="NavBar-toggle" onClick={ () => { this.setState({ showNavBar: !showNavBar })}} />
         <div className="Header">
-        
+
         </div>
         <div className={ `Content${showNavBar ? " navbar-is-visible" : ""}` }>
 
