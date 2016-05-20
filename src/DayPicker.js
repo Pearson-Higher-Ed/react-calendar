@@ -352,21 +352,24 @@ export default class DayPicker extends Component {
     });
 
     return (
+
       <div
         className="DayPicker-Month"
         key={ i }>
 
         { caption }
 
-        <div className="DayPicker-Weekdays" role="rowgroup">
+        <table className="DayPicker-Body" role="rowgroup">
+        <thead className="DayPicker-Weekdays" role="rowgroup">
           <abbr className="DayPicker-WeekdaysRow" role="columnheader">
             { this.renderWeekDays() }
           </abbr>
-        </div>
-        <div className="DayPicker-Body" role="rowgroup">
+        </thead>
           { this.renderWeeksInMonth(date) }
-        </div>
+        </table>
+
       </div>
+
     );
   }
 
@@ -375,11 +378,11 @@ export default class DayPicker extends Component {
     const days = [];
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div key={ i } className="DayPicker-Weekday">
-          <abbr title={ localeUtils.formatWeekdayLong(i, locale) }>
+        <th key={ i } className="DayPicker-Weekday">
+          <abbr className="DayPicker-WeekdaysRow-title" title={ localeUtils.formatWeekdayLong(i, locale) }>
             { localeUtils.formatWeekdayShort(i, locale) }
           </abbr>
-        </div>
+        </th>
       );
     }
     return days;
@@ -389,9 +392,9 @@ export default class DayPicker extends Component {
     const { locale, localeUtils } = this.props;
     const firstDayOfWeek = localeUtils.getFirstDayOfWeek(locale);
     return Helpers.getWeekArray(month, firstDayOfWeek).map((week, i) =>
-      <div key={ i } className="DayPicker-Week" role="row">
+      <tr key={ i } className="DayPicker-Week" role="row">
         { week.map(day => this.renderDay(month, day)) }
-      </div>
+      </tr>
     );
   }
 
@@ -440,7 +443,7 @@ export default class DayPicker extends Component {
     const ariaDisabled = isOutside ? "true" : "false";
 
     return (
-      <div key={ key } className={ className }
+      <td key={ key } className={ className }
         tabIndex={ tabIndex }
         role="gridcell"
         aria-label={ ariaLabel }
@@ -455,7 +458,7 @@ export default class DayPicker extends Component {
           (e) => this.handleDayClick(e, day, modifiers) : null }
         >
         { this.props.renderDay(day) }
-      </div>
+      </td>
     );
   }
 
